@@ -149,9 +149,9 @@ chown root:${COURSE_BUILDERS_GROUP} ${SUBMITTY_INSTALL_DIR}/JUnit
 chmod 751 ${SUBMITTY_INSTALL_DIR}/JUnit
 cd ${SUBMITTY_INSTALL_DIR}/JUnit
 
-wget http://search.maven.org/remotecontent?filepath=junit/junit/${JUNIT_VER}/junit-${JUNIT_VER}.jar -o /dev/null > /dev/null 2>&1
+wget -nv http://search.maven.org/remotecontent?filepath=junit/junit/${JUNIT_VER}/junit-${JUNIT_VER}.jar -o /dev/null > /dev/null 2>&1
 mv remotecontent?filepath=junit%2Fjunit%2F${JUNIT_VER}%2Fjunit-${JUNIT_VER}.jar junit-${JUNIT_VER}.jar
-wget http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/${HAMCREST_VER}/hamcrest-core-${HAMCREST_VER}.jar -o /dev/null > /dev/null 2>&1
+wget -nv http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/${HAMCREST_VER}/hamcrest-core-${HAMCREST_VER}.jar -o /dev/null > /dev/null 2>&1
 mv remotecontent?filepath=org%2Fhamcrest%2Fhamcrest-core%2F${HAMCREST_VER}%2Fhamcrest-core-${HAMCREST_VER}.jar hamcrest-core-${HAMCREST_VER}.jar
 
 
@@ -169,7 +169,7 @@ echo "Getting EMMA..."
 pushd ${SUBMITTY_INSTALL_DIR}/JUnit > /dev/null
 
 EMMA_VER=2.0.5312
-wget https://github.com/Submitty/emma/releases/download/${EMMA_VER}/emma-${EMMA_VER}.zip -o /dev/null > /dev/null 2>&1
+wget -nv https://github.com/Submitty/emma/releases/download/${EMMA_VER}/emma-${EMMA_VER}.zip -o /dev/null > /dev/null 2>&1
 unzip emma-${EMMA_VER}.zip > /dev/null
 mv emma-${EMMA_VER}/lib/emma.jar emma.jar
 rm -rf emma-${EMMA_VER}
@@ -188,7 +188,8 @@ pushd ${SUBMITTY_INSTALL_DIR}/JUnit > /dev/null
 
 JACOCO_VER=0.8.0
 wget https://github.com/jacoco/jacoco/releases/download/v${JACOCO_VER}/jacoco-${JACOCO_VER}.zip -o /dev/null > /dev/null 2>&1
-unzip jacoco-${JACOCO_VER}.zip > /dev/null
+mkdir jacoco-${JACOCO_VER}
+unzip jacoco-${JACOCO_VER}.zip -d jacoco-${JACOCO_VER} > /dev/null
 mv jacoco-${JACOCO_VER}/lib/jacococli.jar jacococli.jar
 rm -rf jacoco-${JACOCO_VER}
 rm jacoco-${JACOCO_VER}.zip
@@ -208,7 +209,7 @@ pushd /tmp > /dev/null
 echo "Getting DrMemory..."
 DRMEM_TAG=release_1.10.1
 DRMEM_VER=1.10.1-3
-wget https://github.com/DynamoRIO/drmemory/releases/download/${DRMEM_TAG}/DrMemory-Linux-${DRMEM_VER}.tar.gz -o /dev/null > /dev/null 2>&1
+wget -nv https://github.com/DynamoRIO/drmemory/releases/download/${DRMEM_TAG}/DrMemory-Linux-${DRMEM_VER}.tar.gz -o /dev/null > /dev/null 2>&1
 tar -xpzf DrMemory-Linux-${DRMEM_VER}.tar.gz
 mv /tmp/DrMemory-Linux-${DRMEM_VER} ${SUBMITTY_INSTALL_DIR}/drmemory
 rm -rf /tmp/DrMemory*
@@ -326,7 +327,8 @@ if [ -d ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial ]; then
     git pull
     popd
 else
-    git clone 'https://github.com/Submitty/Tutorial' ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
+    #git clone 'https://github.com/Submitty/Tutorial' ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
+    git clone -b jacoco 'https://github.com/tcyrus/Tutorial' ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
     pushd ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
     # remember to change this version in .setup/travis/autograder.sh too
     git checkout v0.93
