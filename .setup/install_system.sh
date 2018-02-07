@@ -331,7 +331,7 @@ else
     git clone -b jacoco 'https://github.com/tcyrus/Tutorial' ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
     pushd ${SUBMITTY_INSTALL_DIR}/GIT_CHECKOUT_Tutorial
     # remember to change this version in .setup/travis/autograder.sh too
-    git checkout v0.93
+    #git checkout v0.93
     popd
 fi
 

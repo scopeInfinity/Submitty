@@ -243,7 +243,7 @@ find ${SUBMITTY_INSTALL_DIR}/more_autograding_examples -type f -exec chmod 444 {
 ########################################################################################################################
 # BUILD JUNIT TEST RUNNER (.java file)
 
-echo -e "Build the junit test runner"
+echo -e "Build the jUnit test runner"
 
 # copy the file from the repo
 rsync -rtz ${SUBMITTY_REPOSITORY}/junit_test_runner/TestRunner.java ${SUBMITTY_INSTALL_DIR}/JUnit/TestRunner.java
@@ -500,7 +500,7 @@ mkdir -p ${SUBMITTY_INSTALL_DIR}/SubmittyAnalysisTools
 
 pushd ${SUBMITTY_INSTALL_DIR}/SubmittyAnalysisTools
 for b in count plagiarism diagnostics; do
-    wget -nv"https://github.com/Submitty/AnalysisTools/releases/download/v0.3.3/$b"
+    wget -nv "https://github.com/Submitty/AnalysisTools/releases/download/v0.3.3/$b"
 done
 popd
 
@@ -563,8 +563,7 @@ chown root:root /var/local/submitty/autograding_tmp
 chmod 511 /var/local/submitty/autograding_tmp
 
 # recreate the per untrusted directories
-for ((i=0;i<$NUM_UNTRUSTED;i++));
-do
+for ((i=0;i<$NUM_UNTRUSTED;i++)); do
     myuser=`printf "untrusted%02d" $i`
     mydir=`printf "/var/local/submitty/autograding_tmp/untrusted%02d" $i`
     mkdir $mydir
