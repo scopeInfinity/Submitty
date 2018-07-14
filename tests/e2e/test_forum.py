@@ -1,4 +1,5 @@
 import tempfile
+import time
 import os
 import urllib
 from selenium.webdriver.support.ui import WebDriverWait
@@ -25,6 +26,14 @@ class TestForum(BaseTestCase):
         if 'page=create_thread' in self.driver.current_url:
             pass
         elif 'page=view_thread' in self.driver.current_url:
+            print(self.driver.current_url)
+            print(self.driver.find_element_by_xpath("//a[contains(text(),'Create Thread')]"))
+            time.sleep(5)
+            print(self.driver.current_url)
+            print(self.driver.find_element_by_xpath("//a[contains(text(),'Create Thread')]"))
+            print("--SOURCE-START--")
+            print(self.driver.page_source)
+            print("--SOURCE-END--")
             self.driver.find_element_by_xpath("//a[contains(text(),'Create Thread')]").click()
         else:
             assert False
