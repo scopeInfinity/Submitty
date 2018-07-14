@@ -13,7 +13,7 @@ class TestForum(BaseTestCase):
         super().__init__(testname,user_id="instructor", user_password="instructor", user_name="Quinn")
 
     def init_and_enable_discussion(self):
-        self.driver.find_element_by_id(self.get_current_semester() + '+_sample').click()
+        self.driver.find_element_by_id(self.get_current_semester() + '_sample').click()
         if len(self.driver.find_elements_by_xpath("//a[contains(text(),'Discussion Forum')]")) == 0:
             self.driver.find_element_by_xpath("//a[contains(text(),'Course Settings')]").click()
             self.driver.find_element_by_name("forum_enabled").click()
