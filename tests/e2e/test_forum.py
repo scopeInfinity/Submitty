@@ -136,7 +136,6 @@ class TestForum(BaseTestCase):
         text_area.send_keys(newcontent)
         if upload_attachment:
             attachment_file = self.upload_attachment(upload_button)
-        submit_button.click()
         print("INFO")
         print(post_content)
         print(newcontent)
@@ -145,18 +144,23 @@ class TestForum(BaseTestCase):
         
         print("Before Wait")
         print(submit_button)
-        print(submit_button.get_attribute('innerHTML'))
+        print(submit_button.get_attribute('outerHTML'))
+        print(submit_button.text)
         print(text_area)
-        print(text_area.get_attribute('innerHTML'))
+        print(text_area.get_attribute('outerHTML'))
         print(text_area.get_attribute('value'))
+        submit_button.click()
         self.wait_after_ajax()
         self.driver.implicitly_wait(30)
+        import time
+        time.sleep(5)
+        # self.wait_user_input()
         print("After Wait")
         print(submit_button)
-        print(submit_button.get_attribute('innerHTML'))
-        print(text_area)
-        print(text_area.get_attribute('innerHTML'))
-        print(text_area.get_attribute('value'))
+        print(submit_button.get_attribute('outerHTML'))
+        # print(text_area)
+        # print(text_area.get_attribute('outerHTML'))
+        # print(text_area.get_attribute('value'))
 
         # Test existence only
         self.find_posts(newcontent, must_exists = True, check_attachment = attachment_file)
@@ -196,7 +200,7 @@ class TestForum(BaseTestCase):
                 submit_button.click()
             assert self.driver.find_element_by_id("merge-threads").value_of_css_property("display") == "none"
 
-    def test_basic_operations_thread(self):
+    def atest_basic_operations_thread(self):
         title = "E2E Sample Title E2E"
         content = "E2E Sample Content E2E"
         reply_content1 = "E2E sample reply 1 content E2E"
@@ -263,7 +267,7 @@ class TestForum(BaseTestCase):
         self.delete_thread(title3)
         self.delete_thread(title1)
 
-    def test_categories(self):
+    def atest_categories(self):
         title1 = "E2E Sample Title 1 E2E"
         content1 = "E2E Sample Content 1 E2E"
         title2 = "E2E Sample Title 2 E2E"
@@ -289,7 +293,7 @@ class TestForum(BaseTestCase):
         self.delete_thread(title2)
         assert not self.thread_exists(title3)
 
-    def test_infinite_scroll(self):
+    def atest_infinite_scroll(self):
         self.init_and_enable_discussion()
         list_title = []
         list_content = []
