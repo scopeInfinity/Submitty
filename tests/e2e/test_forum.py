@@ -138,6 +138,9 @@ class TestForum(BaseTestCase):
             attachment_file = self.upload_attachment(upload_button)
         submit_button.click()
         self.wait_after_ajax()
+        import time
+        time.sleep(10)
+        print(self.driver.page_source)
         # Test existence only
         self.find_posts(newcontent, must_exists = True, check_attachment = attachment_file)
         return attachment_file
