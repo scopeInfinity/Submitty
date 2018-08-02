@@ -137,7 +137,27 @@ class TestForum(BaseTestCase):
         if upload_attachment:
             attachment_file = self.upload_attachment(upload_button)
         submit_button.click()
+        print("INFO")
+        print(post_content)
+        print(newcontent)
+        print(first_post)
+        print(upload_attachment)
+        
+        print("Before Wait")
+        print(submit_button)
+        print(submit_button.get_attribute('innerHTML'))
+        print(text_area)
+        print(text_area.get_attribute('innerHTML'))
+        print(text_area.get_attribute('value'))
         self.wait_after_ajax()
+        self.driver.implicitly_wait(30)
+        print("After Wait")
+        print(submit_button)
+        print(submit_button.get_attribute('innerHTML'))
+        print(text_area)
+        print(text_area.get_attribute('innerHTML'))
+        print(text_area.get_attribute('value'))
+
         # Test existence only
         self.find_posts(newcontent, must_exists = True, check_attachment = attachment_file)
         return attachment_file
@@ -160,6 +180,7 @@ class TestForum(BaseTestCase):
         self.view_thread(child_thread_title)
         merge_threads_div = self.driver.find_element_by_id("merge-threads")
         self.driver.find_element_by_xpath("//a[contains(text(),'Merge Threads')]").click()
+        self.wait_after_ajax()
         cancel_button = merge_threads_div.find_element(By.XPATH, ".//a[contains(normalize-space(.), 'Close')]")
         assert merge_threads_div.value_of_css_property("display") == "block"
         if parent_thread_title is None:
