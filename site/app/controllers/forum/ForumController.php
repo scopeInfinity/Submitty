@@ -385,10 +385,10 @@ class ForumController extends AbstractController {
                     }
                 }
                 // Notification to parent post author
-                $post = $this->core->getQueries()->getPost($parent_id);
-                $post_author = $post['author_user_id'];
-                $notification = new Notification($this->core, array('component' => 'forum', 'type' => 'reply', 'thread_id' => $thread_id, 'post_id' => $parent_id, 'post_content' => $post['content'], 'reply_to' => $post_author));
-                $this->core->getQueries()->pushNotification($notification);
+                // $post = $this->core->getQueries()->getPost($parent_id);
+                // $post_author = $post['author_user_id'];
+                // $notification = new Notification($this->core, array('component' => 'forum', 'type' => 'reply', 'thread_id' => $thread_id, 'post_id' => $parent_id, 'post_content' => $post['content'], 'reply_to' => $post_author));
+                // $this->core->getQueries()->pushNotification($notification);
                 $result['next_page'] = $this->core->buildUrl(array('component' => 'forum', 'page' => 'view_thread', 'option' => $display_option, 'thread_id' => $thread_id));
             }
         }
