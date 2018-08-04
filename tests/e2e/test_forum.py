@@ -111,6 +111,9 @@ class TestForum(BaseTestCase):
     def find_posts(self, content, must_exists = True, move_to_thread = None, check_attachment = None):
         if move_to_thread is not None:
             self.view_thread(move_to_thread)
+        WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'post_box') and contains(string(),'{}')]".format(content)))
+                )
         posts = self.driver.find_elements_by_xpath("//div[contains(@class, 'post_box') and contains(string(),'{}')]".format(content))
         if must_exists:
             assert len(posts) > 0
