@@ -1323,9 +1323,14 @@ function checkNumFilesForumUpload(input, post_id){
 }
 
 function testAndGetAttachments(post_box_id, dynamic_check) {
+    var ccc1 = 1;
+     myconsole("TAGA "+(ccc1++));
+   
     var index = post_box_id - 1;
     // Files selected
+   myconsole("TAGA "+(ccc1++));
     var files = [];
+   myconsole("TAGA "+(ccc1++));
     for (var j = 0; j < file_array[index].length; j++) {
         if (file_array[index][j].name.indexOf("'") != -1 ||
             file_array[index][j].name.indexOf("\"") != -1) {
@@ -1344,44 +1349,68 @@ function testAndGetAttachments(post_box_id, dynamic_check) {
         }
         files.push(file_array[index][j]);
     }
+   myconsole("TAGA "+(ccc1++));
     if(files.length > 5){
+        myconsole("TAGA AAA");
+   
         if(dynamic_check) {
+    myconsole("TAGA BBB");
             displayError('Max file upload size is 5. Please remove attachments accordingly.');
         } else {
-            displayError('Max file upload size is 5. Please try again.');
+    myconsole("TAGA CCC");
+           displayError('Max file upload size is 5. Please try again.');
         }
         return false;
     } else {
+        myconsole("TAGA DDD");
+   
         if(!checkForumFileExtensions(files)){
+            myconsole("TAGA EEEE");
+   
             displayError('Invalid file type. Please upload only image files. (PNG, JPG, GIF, BMP...)');
             return false;
         }
     }
+   myconsole("TAGA "+(ccc1++));
     return files;
 }
 
 function publishFormWithAttachments(form, test_category, error_message) {
+    var ccc1 = 1;
+    myconsole("PFWA "+(ccc1++));
+    myconsoleEE("form", form);
     if(!form[0].checkValidity()) {
+        myconsole("PFWA AAAA");
         form[0].reportValidity();
         return false;
     }
+    myconsole("PFWA "+(ccc1++));
     if(test_category) {
+        myconsole("PFWA BBBBB");
         if((!form.prop("ignore-cat")) && form.find('.cat-selected').length == 0) {
+            myconsole("PFWA CCCCC");
             alert("At least one category must be selected.");
             return false;
         }
     }
+    myconsole("PFWA "+(ccc1++));
     var post_box_id = form.find(".thread-post-form").attr("post_box_id");
+    myconsole("PFWA "+(ccc1++));
     var formData = new FormData(form[0]);
-
+    myconsole("PFWA "+(ccc1++));
+    
     var files = testAndGetAttachments(post_box_id, false);
+    myconsole("PFWA "+(ccc1++));
     if(files === false) {
         return false;
     }
+    myconsole("PFWA "+(ccc1++));
     for(var i = 0; i < files.length ; i++) {
         formData.append('file_input[]', files[i], files[i].name);
     }
+    myconsole("PFWA "+(ccc1++));
     var submit_url = form.attr('action');
+    myconsole("PFWA "+(ccc1++));
 
     $.ajax({
         url: submit_url,
@@ -1390,27 +1419,43 @@ function publishFormWithAttachments(form, test_category, error_message) {
         contentType: false,
         type: 'POST',
         success: function(data){
+            myconsole("AJAX success");
+
+            myconsole(data);
             try {
                 var json = JSON.parse(data);
+                   myconsole("AJAX after try json");
             } catch (err){
+                                myconsole("AJAX err");
                 var message ='<div class="inner-message alert alert-error" style="position: fixed;top: 40px;left: 50%;width: 40%;margin-left: -20%;" id="theid"><a class="fa fa-times message-close" onClick="removeMessagePopup(\'theid\');"></a><i class="fa fa-times-circle"></i>Error parsing data. Please try again.</div>';
                 $('#messages').append(message);
                 return;
             }
+                                myconsole("nextp");
             window.location.href = json['next_page'];
+
+                                myconsole("didnt GO");
         },
         error: function(){
+            myconsole("AJAX error");
             window.alert(error_message);
         }
     });
+    myconsole("PFWA "+(ccc1++));
     return false;
 }
 
 function createThread() {
     return publishFormWithAttachments($(this), true, "Something went wrong while creating thread. Please try again.");
 }
-
+function myconsole(string) {
+    $("body").append(string+"<br>");
+}
+function myconsoleEE(tag, eel) {
+    $("body").append("ELEMENT IS "+tag+" ======================<br>"+$(eel).html()+"<br>");
+}
 function publishPost() {
+    myconsole("PUBLISH POST CALLED");
     return publishFormWithAttachments($(this), false, "Something went wrong while publishing post. Please try again.");
 }
 
