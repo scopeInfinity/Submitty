@@ -120,7 +120,7 @@
                  $(this).closest('form').trigger('reinitialize.areYouSure');"
                      class="btn btn-default close-button">Cancel</a>
         {% endif %}
-        <input type="submit" style="display:inline-block;" name="post" value="{{ submit_label }}" class="btn btn-primary" />
+        <input type="submit" style="display:inline-block;" name="post" value="{{ submit_label }}" class="btn btn-primary" onclick="$(this).after('yoyo');" />
     </span>
 </div>
 <br>
