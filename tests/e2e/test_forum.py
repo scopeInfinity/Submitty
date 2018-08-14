@@ -79,6 +79,7 @@ class TestForum(BaseTestCase):
         move_to_top_button = self.driver.find_element_by_xpath("//i[contains(@class, 'fa-angle-double-up')]")
         # Move to top of thread list
         move_to_top_button.click()
+        WebDriverWait(self.driver, 1)
         self.wait_after_ajax()
         while True:
             # Scroll down in thread list until required thread is found
