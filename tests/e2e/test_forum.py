@@ -82,7 +82,7 @@ class TestForum(BaseTestCase):
         WebDriverWait(self.driver, 1)
         self.wait_after_ajax()
         print("***************SOUNCE START ## **************")
-        print(self.driver.page_source)
+        print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
         print("***************SOUNCE END ## **************")
         counter = 2
         while True:
@@ -101,7 +101,7 @@ class TestForum(BaseTestCase):
             self.wait_after_ajax()
             assert not is_loading_spinner_displayed()
         print("***************SOUNCE START @@ **************")
-        print(self.driver.page_source)
+        print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
         print("***************SOUNCE END @@ **************")
 
         return len(self.driver.find_elements_by_xpath(target_xpath)) > 0
@@ -187,7 +187,7 @@ class TestForum(BaseTestCase):
                 submit_button.click()
             assert self.driver.find_element_by_id("merge-threads").value_of_css_property("display") == "none"
 
-    def test_basic_operations_thread(self):
+    def atest_basic_operations_thread(self):
         title = "E2E Sample Title E2E"
         content = "E2E Sample Content E2E"
         reply_content1 = "E2E sample reply 1 content E2E"
@@ -210,7 +210,7 @@ class TestForum(BaseTestCase):
             self.delete_thread(title)
             assert not self.thread_exists(title)
 
-    def test_forum_merge_thread(self):
+    def atest_forum_merge_thread(self):
         self.init_and_enable_discussion()
         title1 = "E2E Test 1 E2E"
         title2 = "E2E Test 2 E2E"
@@ -254,7 +254,7 @@ class TestForum(BaseTestCase):
         self.delete_thread(title3)
         self.delete_thread(title1)
 
-    def test_categories(self):
+    def atest_categories(self):
         title1 = "E2E Sample Title 1 E2E"
         content1 = "E2E Sample Content 1 E2E"
         title2 = "E2E Sample Title 2 E2E"
@@ -288,21 +288,33 @@ class TestForum(BaseTestCase):
         for i in range(0,22):
             list_title.append("E2E Sample Title {} E2E".format(i))
             list_content.append("E2E Sample Content {} E2E".format(i))
-
+        cc = 1
         # Create Threads
         for title,content in zip(list_title, list_content):
+            print("TEST CT {}".format(cc))
+            cc+=1
             assert not self.thread_exists(title)
             self.create_thread(title, content)
-
+        cc = 1
         # Check Threads
         for title in list_title:
+            print("TEST2 CT {}".format(cc))
+            cc+=1
             self.view_thread(title)
+        print("TEST2 CT {}".format(cc))
+        cc+=1
         self.view_thread(list_title[0])
+        print("TEST2 CT {}".format(cc))
+        cc+=1
         self.view_thread(list_title[-1])
 
+        cc = 1
         # Delete Threads
         for title in list_title:
+            print("TEST3 CT {}".format(cc))
             self.delete_thread(title)
+            print("TEST4 CT {}".format(cc))
+            cc+=1
             assert not self.thread_exists(title)
 
 if __name__ == "__main__":
