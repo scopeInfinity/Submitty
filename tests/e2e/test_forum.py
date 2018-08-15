@@ -79,6 +79,10 @@ class TestForum(BaseTestCase):
         is_loading_spinner_displayed = lambda : loading_spinners[0].is_displayed() or loading_spinners[1].is_displayed()
         move_to_top_button = self.driver.find_element_by_xpath("//i[contains(@class, 'fa-angle-double-up')]")
         # Move to top of thread list
+        print("JEEEEEEEEEEEEEEEEEEEEE1")
+        print(loading_spinners[0].get_attribute('innerHTML'))
+        print("JEEEEEEEEEEEEEEEEEEEEE2")
+        print(loading_spinners[1].get_attribute('innerHTML'))
         move_to_top_button.click()
         # WebDriverWait(self.driver, 10)
         self.wait_after_ajax()
