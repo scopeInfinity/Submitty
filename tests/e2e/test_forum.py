@@ -90,6 +90,8 @@ class TestForum(BaseTestCase):
         print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
         print("***************SOUNCE END ## **************")
         counter = 2
+
+        thread_count = int(self.driver.execute_script('return $("#thread_list .thread_box").length;'))
         while True:
             # Scroll down in thread list until required thread is found
             print("CC counter {}".format(counter))
@@ -110,11 +112,17 @@ class TestForum(BaseTestCase):
             print("THREAD COUNT: {}".format(self.driver.execute_script('return  $("#thread_list .thread_box").length;')))
             # Wait for scroll bar to hit bottom
             # WebDriverWait(self.driver, 10)
-            if not is_loading_spinner_displayed():
-                print("NO Loading")
-                break
+            # if not is_loading_spinner_displayed():
+            #     print("NO Loading")
+            #     break
             self.wait_after_ajax()
-            assert not is_loading_spinner_displayed()
+            new_thread_count = int(self.driver.execute_script('return $("#thread_list .thread_box").length;'))
+            assert new_thread_count >= thread_count
+            if thread_count == new_thread_count:
+                print("NO Loading HERE")
+                break
+            thread_count = new_thread_count
+            # assert not is_loading_spinner_displayed()
         print("***************SOUNCE START @@ **************")
         print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
         print("***************SOUNCE END @@ **************")
