@@ -80,7 +80,7 @@ class TestForum(BaseTestCase):
         move_to_top_button = self.driver.find_element_by_xpath("//i[contains(@class, 'fa-angle-double-up')]")
         # Move to top of thread list
         move_to_top_button.click()
-        WebDriverWait(self.driver, 1)
+        WebDriverWait(self.driver, 10)
         self.wait_after_ajax()
         print("***************SOUNCE START ## **************")
         print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
@@ -98,7 +98,7 @@ class TestForum(BaseTestCase):
             # Scroll Dowm
             self.driver.execute_script("$('#thread_list').animate({ scrollTop: $('#thread_list').prop('scrollHeight') }, 'fast');")
             # Wait for scroll bar to hit bottom
-            WebDriverWait(self.driver, 1)
+            WebDriverWait(self.driver, 10)
             if not is_loading_spinner_displayed():
                 print("NO Loading")
                 break
@@ -107,7 +107,7 @@ class TestForum(BaseTestCase):
         print("***************SOUNCE START @@ **************")
         print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
         print("***************SOUNCE END @@ **************")
-
+        self.wait_after_ajax()
         return len(self.driver.find_elements_by_xpath(target_xpath)) > 0
 
     def view_thread(self, title, return_info = False):
@@ -294,11 +294,11 @@ class TestForum(BaseTestCase):
             list_content.append("E2E Sample Content {} E2E".format(i))
         cc = 1
         # Create Threads
-        for title,content in zip(list_title, list_content):
-            print("TEST CT {}".format(cc))
-            cc+=1
-            assert not self.thread_exists(title)
-            self.create_thread(title, content)
+        # for title,content in zip(list_title, list_content):
+        #     print("TEST CT {}".format(cc))
+        #     cc+=1
+        #     assert not self.thread_exists(title)
+        #     self.create_thread(title, content)
         cc = 1
         # Check Threads
         for title in list_title:

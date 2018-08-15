@@ -1609,7 +1609,11 @@ function dynamicScrollLoadPage(element, atEnd) {
                 $(element).data("dynamic_lock_load", false);
                 load_page_callback(content, count);
             },
-            error: function(){
+            error: function(jqXHR, textStatus, errorThrown){
+
+                $("#thread_list").append(jqXHR.responseText);
+                $("#thread_list").append(""+jqXHR.status);
+
                 $(element).data("dynamic_lock_load", false);
                 load_page_fail_callback();
                 window.alert("Something went wrong while trying to load more threads. Please try again.");
