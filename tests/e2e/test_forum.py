@@ -3,6 +3,7 @@ import os
 import urllib
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from .base_testcase import BaseTestCase
 
 class TestForum(BaseTestCase):
@@ -96,7 +97,7 @@ class TestForum(BaseTestCase):
                 break
             thread_list = self.driver.find_element_by_id("thread_list")
             # Scroll Dowm
-            self.driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', thread_list)
+            thread_list.send_keys(Keys.END)
             # Wait for scroll bar to hit bottom
             WebDriverWait(self.driver, 1)
             if not is_loading_spinner_displayed():
