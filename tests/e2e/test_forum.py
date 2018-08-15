@@ -95,9 +95,8 @@ class TestForum(BaseTestCase):
                 # Thread Found
                 print("DIV BACK")
                 break
-            thread_list = self.driver.find_element_by_id("thread_list")
             # Scroll Dowm
-            thread_list.send_keys(Keys.END)
+            self.driver.execute_script("$('#thread_list').animate({ scrollTop: $('#thread_list').prop('scrollHeight') }, 'fast');")
             # Wait for scroll bar to hit bottom
             WebDriverWait(self.driver, 1)
             if not is_loading_spinner_displayed():
