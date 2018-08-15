@@ -302,11 +302,11 @@ class TestForum(BaseTestCase):
             list_content.append("E2E Sample Content {} E2E".format(i))
         cc = 1
         # Create Threads
-        # for title,content in zip(list_title, list_content):
-        #     print("TEST CT {}".format(cc))
-        #     cc+=1
-        #     assert not self.thread_exists(title)
-        #     self.create_thread(title, content)
+        for title,content in zip(list_title, list_content):
+            print("TEST CT {}".format(cc))
+            cc+=1
+            assert not self.thread_exists(title)
+            self.create_thread(title, content)
         cc = 1
         # Check Threads
         for title in list_title:
