@@ -96,12 +96,12 @@ class TestForum(BaseTestCase):
                 print("DIV BACK")
                 break
             # Scroll Dowm
-            print("THREAD COUNT: {}".format(self.driver.execute_script('$("#thread_list .thread_box").length;')))
-            print("THREAD scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list")..prop(\'scrollHeight\');')))
+            print("THREAD COUNT: {}".format(self.driver.execute_script('return $("#thread_list .thread_box").length;')))
+            print("THREAD scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list").prop(\'scrollHeight\');')))
 
             self.driver.execute_script("$('#thread_list').animate({ scrollTop: $('#thread_list').prop('scrollHeight') });")
-            print("THREAD2 scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list")..prop(\'scrollHeight\');')))
-            print("THREAD COUNT: {}".format(self.driver.execute_script('$("#thread_list .thread_box").length;')))
+            print("THREAD2 scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list").prop(\'scrollHeight\');')))
+            print("THREAD COUNT: {}".format(self.driver.execute_script('return  $("#thread_list .thread_box").length;')))
             # Wait for scroll bar to hit bottom
             # WebDriverWait(self.driver, 10)
             if not is_loading_spinner_displayed():
