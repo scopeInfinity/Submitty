@@ -87,9 +87,12 @@ class TestForum(BaseTestCase):
         counter = 2
         while True:
             # Scroll down in thread list until required thread is found
+            print("CC counter {}".format(counter))
+            counter+=1
             divs = self.driver.find_elements_by_xpath(target_xpath)
             if len(divs) > 0:
                 # Thread Found
+                print("DIV BACK")
                 break
             thread_list = self.driver.find_element_by_id("thread_list")
             # Scroll Dowm
@@ -97,6 +100,7 @@ class TestForum(BaseTestCase):
             # Wait for scroll bar to hit bottom
             WebDriverWait(self.driver, 1)
             if not is_loading_spinner_displayed():
+                print("NO Loading")
                 break
             self.wait_after_ajax()
             assert not is_loading_spinner_displayed()
