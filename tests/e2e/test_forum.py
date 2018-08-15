@@ -81,6 +81,10 @@ class TestForum(BaseTestCase):
         move_to_top_button.click()
         WebDriverWait(self.driver, 1)
         self.wait_after_ajax()
+        print("***************SOUNCE START ## **************")
+        print(self.driver.page_source)
+        print("***************SOUNCE END ## **************")
+        counter = 2
         while True:
             # Scroll down in thread list until required thread is found
             divs = self.driver.find_elements_by_xpath(target_xpath)
@@ -96,6 +100,10 @@ class TestForum(BaseTestCase):
                 break
             self.wait_after_ajax()
             assert not is_loading_spinner_displayed()
+        print("***************SOUNCE START @@ **************")
+        print(self.driver.page_source)
+        print("***************SOUNCE END @@ **************")
+
         return len(self.driver.find_elements_by_xpath(target_xpath)) > 0
 
     def view_thread(self, title, return_info = False):
