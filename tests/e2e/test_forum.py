@@ -80,7 +80,7 @@ class TestForum(BaseTestCase):
         move_to_top_button = self.driver.find_element_by_xpath("//i[contains(@class, 'fa-angle-double-up')]")
         # Move to top of thread list
         move_to_top_button.click()
-        WebDriverWait(self.driver, 10)
+        # WebDriverWait(self.driver, 10)
         self.wait_after_ajax()
         print("***************SOUNCE START ## **************")
         print(self.driver.find_element_by_id('forum_wrapper').get_attribute('innerHTML'))
@@ -96,9 +96,14 @@ class TestForum(BaseTestCase):
                 print("DIV BACK")
                 break
             # Scroll Dowm
-            self.driver.execute_script("$('#thread_list').animate({ scrollTop: $('#thread_list').prop('scrollHeight') }, 'fast');")
+            print("THREAD COUNT: {}".format(self.driver.execute_script('$("#thread_list .thread_box").length;')))
+            print("THREAD scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list")..prop(\'scrollHeight\');')))
+
+            self.driver.execute_script("$('#thread_list').animate({ scrollTop: $('#thread_list').prop('scrollHeight') });")
+            print("THREAD2 scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list")..prop(\'scrollHeight\');')))
+            print("THREAD COUNT: {}".format(self.driver.execute_script('$("#thread_list .thread_box").length;')))
             # Wait for scroll bar to hit bottom
-            WebDriverWait(self.driver, 10)
+            # WebDriverWait(self.driver, 10)
             if not is_loading_spinner_displayed():
                 print("NO Loading")
                 break
