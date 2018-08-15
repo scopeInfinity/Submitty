@@ -100,7 +100,7 @@ class TestForum(BaseTestCase):
             print("THREAD scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list").prop(\'scrollHeight\');')))
             print("THREAD scrollTop: {}".format(self.driver.execute_script('return $("#thread_list").scrollTop();')))
             
-            self.driver.execute_script("$('#thread_list').scrollTop(100);")
+            self.driver.execute_script("$('#thread_list').scrollTop($('#thread_list').prop('scrollHeight'));")
             WebDriverWait(self.driver, 10)
             print("THREAD2 scrollHeight: {}".format(self.driver.execute_script('return $("#thread_list").prop(\'scrollHeight\');')))
             print("THREAD2 scrollTop: {}".format(self.driver.execute_script('return $("#thread_list").scrollTop();')))
